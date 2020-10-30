@@ -61,19 +61,24 @@ class triangle:
         return True
 
     def wToXY(self, wvals:vector2):
+        #get w1 and w2 out of vector for ease of use in next step
         w1 = wvals.x()
         w2 = wvals.y()
 
+        #find x and y point corresponding to w1 and w2 in triangle
         px = self.a().x() + (w1 * (self.b().x() - self.a().x())) + (w2 * (self.c().x() - self.a().x()))
         py = self.a().y() + (w1 * (self.b().y() - self.a().y())) + (w2 * (self.c().y() - self.a().y()))
         return vector2(px, py)
 
+    #get point a
     def a(self):
         return self.p[0]
 
+    #get point b
     def b(self):
         return self.p[1]
     
+    #get point c
     def c(self):
         return self.p[2]
 
