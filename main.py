@@ -83,21 +83,23 @@ class triangle:
         return self.p[2]
 
 UVTriangle = triangle(vector2(193, 746), vector2(590, 52), vector2(988, 745))    #specify triangle in cat image
-tris = [triangle(vector2(58, 444), vector2(250, 119), vector2(394, 449)), triangle(vector2(394, 449), vector2(250, 119), vector2(463, 341))]
+tris = [triangle(vector2(58, 444), vector2(250, 119), vector2(394, 449)), triangle(vector2(394, 449), vector2(250, 119), vector2(463, 341))] #triangles in image that need the cat texture
 
-cat = Image.open("./cat.png", "r")
-catTEX = cat.load()
+cat = Image.open("./cat.png", "r") #load cat image
+catTEX = cat.load() #turn cat image into pixel array
 
-img = Image.new("RGB", (512, 512), "black")
-px = img.load()
+img = Image.new("RGB", (512, 512), "black") #make output image
+px = img.load() #make pixels array for output image
 
-for y in range(512):
+#go over all pixels in image
+for y in range(512):    
     for x in range(512):
+        #make 2 component vector as a point for next functions
         point = vector2(x, y)
-        for tri in tris:
-            if tri.isInTriangle(point):
-                cw = tri.getWValues(point)
-                cpos = UVTriangle.wToXY(cw)
-                px[x, y] = catTEX[cpos.x(), cpos.y()]
+        for tri in tris:    #go over all triangles in scene
+            if tri.isInTriangle(point): #check if current point is in current triangle
+                cw = tri.getWValues(point)  #get w1 and w2 if point is in triangle
+                cpos = UVTriangle.wToXY(cw) #get position on the cat image
+                px[x, y] = catTEX[cpos.x(), cpos.y()] #set color to corresponding position on the cat image
 
-img.save("./cat_uvmapped.png")
+img.save("./cat_uvmapped.png") #save image
