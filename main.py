@@ -83,17 +83,25 @@ class triangle:
         return self.p[2]
 
 UVTriangle = triangle(vector2(193, 746), vector2(590, 52), vector2(988, 745))    #specify triangle in cat image
-tris = [triangle(vector2(58, 444), vector2(250, 119), vector2(394, 449)), triangle(vector2(394, 449), vector2(250, 119), vector2(463, 341))] #triangles in image that need the cat texture
+tris = [
+    triangle(vector2(121, 336)*4, vector2(118, 186)*4, vector2(285, 338)*4), #cube front triangle bottom
+    triangle(vector2(118, 186)*4, vector2(286, 188)*4, vector2(285, 338)*4), #cube front triangle top
+    triangle(vector2(118, 186)*4, vector2(182, 144)*4, vector2(286, 188)*4), #cube top triangle bottom
+    triangle(vector2(182, 144)*4, vector2(337, 146)*4, vector2(286, 188)*4), #cube top triangle top
+    triangle(vector2(285, 338)*4, vector2(286, 188)*4, vector2(403, 337)*4), #slope front face
+    triangle(vector2(286, 188)*4, vector2(337, 146)*4, vector2(403, 337)*4), #slope angled part bottom
+    triangle(vector2(337, 146)*4, vector2(452, 276)*4, vector2(403, 337)*4)  #slope angled part top
+] #triangles in image that need the cat texture
 
 cat = Image.open("./cat.png", "r") #load cat image
 catTEX = cat.load() #turn cat image into pixel array
 
-img = Image.new("RGB", (512, 512), "black") #make output image
+img = Image.new("RGB", (2048, 2048), "black") #make output image
 px = img.load() #make pixels array for output image
 
 #go over all pixels in image
-for y in range(512):    
-    for x in range(512):
+for y in range(2048):    
+    for x in range(2048):
         #make 2 component vector as a point for next functions
         point = vector2(x, y)
         for tri in tris:    #go over all triangles in scene
